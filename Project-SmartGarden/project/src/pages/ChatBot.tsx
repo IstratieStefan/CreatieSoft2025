@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { Send, Bot } from 'lucide-react';
-import {getBotResponse} from "../communication.mjs";
-
 export default function ChatBot() {
   const [messages, setMessages] = useState([
     {
@@ -10,24 +8,21 @@ export default function ChatBot() {
     },
   ]);
   const [input, setInput] = useState('');
-  const handleSubmit =async  (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
     // Add user message
     setMessages((prev) => [...prev, { type: 'user', content: input }]);
-
-    // Get bot response
-    const botResponse = await getBotResponse(input);
-
-    // Add bot response
-    setMessages((prev) => [
-      ...prev,
-      {
-        type: 'bot',
-        content: botResponse,
-      },
-    ]);
-
+    // Simulate bot response (replace with actual API integration)
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          type: 'bot',
+          content: 'This is a placeholder response.',
+        },
+      ]);
+    }, 1000);
     setInput('');
   };
   return (
