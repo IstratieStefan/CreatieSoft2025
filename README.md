@@ -7,11 +7,14 @@
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
 Smart Garden is a modern web application built to monitor and manage garden conditions with a real-time dashboard and chatbot. The app connects to various sensors using an ESP32 and provides an intelligent chatbot powered by GPT-4 to help users with gardening queries.
-
+![Home](https://github.com/IstratieStefan/CreatieSoft2025/blob/main/Gallery/Home.png)
 ## Features
 - **Real-Time Sensor Dashboard**: Displays live data from ESP32 sensors, including temperature, humidity, soil moisture, and light levels.
+  ![Dash](https://github.com/IstratieStefan/CreatieSoft2025/blob/main/Gallery/Dashboard.png)
 - **Chatbot**: Powered by GPT-4, it provides instant gardening advice and answers user queries.
+  ![Chatbot](https://github.com/IstratieStefan/CreatieSoft2025/blob/main/Gallery/Chatbot.png)
 - **ESP32 Integration**: Collects sensor data via HTTP communication, making it easy to connect and monitor your garden remotely.
+  ![Settings](https://github.com/IstratieStefan/CreatieSoft2025/blob/main/Gallery/Settings.png)
 - **Responsive UI**: Built using React and Material UI for a clean and intuitive user interface.
 
 ## Technologies Used
