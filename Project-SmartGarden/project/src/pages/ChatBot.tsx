@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Send, Bot } from 'lucide-react';
-import OpenAI from 'openai';
-
-const openai = new OpenAI({
-  apiKey: process.env.REACT_APP_OPENAI_API_KEY, // Use the environment variable
-});
+import {getBotResponse} from "../communication.mjs";
 
 export default function ChatBot() {
   const [messages, setMessages] = useState([
@@ -14,48 +10,26 @@ export default function ChatBot() {
     },
   ]);
   const [input, setInput] = useState('');
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit =async  (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
-
     // Add user message
     setMessages((prev) => [...prev, { type: 'user', content: input }]);
 
-    // Call OpenAI API
-    try {
-      const completion = await openai.chat.completions.create({
-        model: 'gpt-4',
-        messages: [
-          { role: 'system', content: 'You are a helpful assistant.' },
-          { role: 'user', content: input },
-        ],
-      });
+    // Get bot response
+    const botResponse = await getBotResponse(input);
 
-      const botResponse = completion.choices[0].message.content;
-
-      // Add bot response
-      setMessages((prev) => [
-        ...prev,
-        {
-          type: 'bot',
-          content: botResponse || 'Sorry, I am having trouble responding right now.',
-        },
-      ]);
-    } catch (error) {
-      console.error('Error fetching response from OpenAI:', error);
-      setMessages((prev) => [
-        ...prev,
-        {
-          type: 'bot',
-          content: 'Sorry, I am having trouble responding right now.',
-        },
-      ]);
-    }
+    // Add bot response
+    setMessages((prev) => [
+      ...prev,
+      {
+        type: 'bot',
+        content: botResponse,
+      },
+    ]);
 
     setInput('');
   };
-
   return (
       <div className="min-h-[calc(100vh-4rem)] bg-gray-50 max-w-full">
         <div className="mx-auto max-w-4xl px-4 py-8 max-w-full">
@@ -66,7 +40,6 @@ export default function ChatBot() {
                 <h2 className="text-xl font-semibold text-white">Garden Assistant</h2>
               </div>
             </div>
-
             {/* Chat messages */}
             <div className="h-[600px] overflow-y-auto p-4 space-y-4">
               {messages.map((message, index) => (
@@ -88,7 +61,6 @@ export default function ChatBot() {
                   </div>
               ))}
             </div>
-
             {/* Input form */}
             <form onSubmit={handleSubmit} className="p-4 border-t">
               <div className="flex space-x-4">
