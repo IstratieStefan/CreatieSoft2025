@@ -53,16 +53,19 @@ export default function Dashboard() {
   // Update values every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
+      // Randomly update values (can replace with real sensor data)
       const newTemp = prevTemperature + (Math.random() > 0.5 ? 1 : -1);
       const newHumidity = prevHumidity + (Math.random() > 0.5 ? 2 : -2);
       const newSoilMoisture = prevSoilMoisture + (Math.random() > 0.5 ? 2 : -2);
       const newLightLevel = prevLightLevel + (Math.random() > 0.5 ? 10 : -10);
 
+      // Update the state with the new values
       setTemperature(newTemp);
       setHumidity(newHumidity);
       setSoilMoisture(newSoilMoisture);
       setLightLevel(newLightLevel);
 
+      // Update the previous values to the current ones for next comparison
       setPrevTemperature(newTemp);
       setPrevHumidity(newHumidity);
       setPrevSoilMoisture(newSoilMoisture);
@@ -73,33 +76,22 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, [prevTemperature, prevHumidity, prevSoilMoisture, prevLightLevel]);
 
-  useEffect(() => {
-  const interval = setInterval(() => {
-    setTemperature(prevTemperature => {
-      const newTemp = prevTemperature + (Math.random() > 0.5 ? 1 : -1);
-      setPrevTemperature(newTemp);
-      return newTemp;
-    });
-    setHumidity(prevHumidity => {
-      const newHumidity = prevHumidity + (Math.random() > 0.5 ? 2 : -2);
-      setPrevHumidity(newHumidity);
-      return newHumidity;
-    });
-    setSoilMoisture(prevSoilMoisture => {
-      const newSoilMoisture = prevSoilMoisture + (Math.random() > 0.5 ? 2 : -2);
-      setPrevSoilMoisture(newSoilMoisture);
-      return newSoilMoisture;
-    });
-    setLightLevel(prevLightLevel => {
-      const newLightLevel = prevLightLevel + (Math.random() > 0.5 ? 10 : -10);
-      setPrevLightLevel(newLightLevel);
-      return newLightLevel;
-    });
-  }, 5000); // 5000ms = 5 seconds
+  const getTrend = (currentValue: number, prevValue: number): string => {
+    if (currentValue > prevValue) {
+      return '↑';
+    } else if (currentValue < prevValue) {
+      return '↓';
+    } else
+      return '→'; // Stable
+  };
 
-  // Clean up the interval when component unmounts
-  return () => clearInterval(interval);
-}, []);
+  const statusCards = [
+    { title: 'Temperature', value: `${temperature}°C`, icon: Thermometer, trend: getTrend(temperature, prevTemperature), color: theme.palette.error.main },
+    { title: 'Humidity', value: `${humidity}%`, icon: Droplets, trend: getTrend(humidity, prevHumidity), color: theme.palette.primary.main },
+    { title: 'Soil Moisture', value: `${soilMoisture}%`, icon: Wind, trend: getTrend(soilMoisture, prevSoilMoisture), color: theme.palette.success.main },
+    { title: 'Light Level', value: `${lightLevel} lux`, icon: Sun, trend: getTrend(lightLevel, prevLightLevel), color: theme.palette.warning.main },
+  ];
+
   return (
       <Box sx={{ height: '100%' }}>
         {/* Status Cards */}
@@ -256,7 +248,5 @@ export default function Dashboard() {
           </Grid>
         </Grid>
       </Box>
-
-
   );
 }

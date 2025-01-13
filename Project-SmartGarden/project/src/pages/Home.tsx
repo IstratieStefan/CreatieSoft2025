@@ -145,6 +145,7 @@ export default function Home() {
           backgroundImage: 'url(https://images.unsplash.com/photo-1624397640148-949b1732bb0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+            borderRadius: '16px',
           backgroundAttachment: 'fixed',
           display: 'flex',
           alignItems: 'center',
