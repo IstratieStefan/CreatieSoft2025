@@ -1,6 +1,11 @@
 
 # Smart Garden
 
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Espressif](https://img.shields.io/badge/espressif-E7352C.svg?style=for-the-badge&logo=espressif&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+
 Smart Garden is a modern web application built to monitor and manage garden conditions with a real-time dashboard and chatbot. The app connects to various sensors using an ESP32 and provides an intelligent chatbot powered by GPT-4 to help users with gardening queries.
 
 ## Features
